@@ -23,7 +23,7 @@ export const fetchMovies = createAsyncThunk(
         with_genres: genreId,
       },
     });
-    
+
     return response.data;
   }
 );
@@ -43,22 +43,27 @@ export const fetchDiscover = createAsyncThunk(
   }
 );
 
+export const fetchSearchMovies = createAsyncThunk(
+  "movies/fetchSearchMovies",
+  async ({ search }) => {
+    const query = search.trim();
+
+    const response = await tmdb.get('/search/movie', {
+      params: {
+        query,
+      },
+    });
+
+    return response.data;
+  }
+);
+
 const initialState = {
-  discoverMovie: {
-    movies: [],
-    status: "idle",
-    error: null,
-  },
   movie: {
     movies: [],
     status: "idle",
     error: null,
   },
-  searchMovies: {
-    movies: [],
-    status: "idle",
-    error: null,
-  }
 };
 
 const moviesSlice = createSlice({
@@ -81,15 +86,28 @@ const moviesSlice = createSlice({
 
     builder
       .addCase(fetchDiscover.pending, (state) => {
-        state.discoverMovie.status = "loading";
+        state.movie.status = "loading";
       })
       .addCase(fetchDiscover.fulfilled, (state, action) => {
-        state.discoverMovie.status = "succeeded";
-        state.discoverMovie.movies = action.payload;
+        state.movie.status = "succeeded";
+        state.movie.movies = action.payload;
       })
       .addCase(fetchDiscover.rejected, (state, action) => {
-        state.discoverMovie.status = "failed";
-        state.discoverMovie.error = action.error.message;
+        state.movie.status = "failed";
+        state.movie.error = action.error.message;
+      });
+
+    builder
+      .addCase(fetchSearchMovies.pending, (state) => {
+        state.movie.status = "loading";
+      })
+      .addCase(fetchSearchMovies.fulfilled, (state, action) => {
+        state.movie.status = "succeeded";
+        state.movie.movies = action.payload;
+      })
+      .addCase(fetchSearchMovies.rejected, (state, action) => {
+        state.movie.status = "failed";
+        state.movie.error = action.error.message;
       });
   },
 });

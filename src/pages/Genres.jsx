@@ -20,8 +20,8 @@ const Genres = () => {
         <span className="font-semibold mb-3 text-black">Discover</span>
         {staticCategories.map((item, i) => {
           return (
-            <Link to={`/discover/${item}`} className="ml-1">
-              <MenuItem key={i} name={item} selected={selectedMenu} />
+            <Link to={`/discover/${item}`} key={i} className="ml-1">
+              <MenuItem name={item} selected={selectedMenu} />
             </Link>
           );
         })}
@@ -31,8 +31,8 @@ const Genres = () => {
         <div className="flex flex-col gap-[1px]">
           {genres.map((item, i) => {
             return (
-              <Link to={`/genres/${item.name}`} className="ml-1">
-                <MenuItem key={i} name={item.name} selected={selectedMenu} />
+              <Link to={`/genres/${item.name}`} key={i} className="ml-1">
+                <MenuItem  name={item.name} selected={selectedMenu} />
               </Link>
             );
           })}

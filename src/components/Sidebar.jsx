@@ -1,6 +1,6 @@
 import React from 'react'
-import Logo from '../components/Logo.jsx'
-import Genres from './Genres.jsx';
+import Logo from './Logo.jsx'
+import Genres from '../pages/Genres.jsx';
 
  
 const Sidebar = () => {

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSelectedMenu } from "../redux/configSlice";
 import { fetchMovies } from "../redux/movies/moviesSlice";
 import MovieCard from "../components/MovieCard";
+import Container from "./Container";
 
 const GenreMovies = () => {
   const params = useParams();
@@ -32,7 +33,7 @@ const GenreMovies = () => {
   }
 
   return (
-    <div className="h-full w-full p-3 flex flex-wrap justify-between">
+    <Container>
       {movies.results.map((data, i) => {
         return (
           <MovieCard
@@ -43,7 +44,7 @@ const GenreMovies = () => {
           />
         );
       })}
-    </div>
+    </Container>
   );
 };
 

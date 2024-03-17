@@ -1,28 +1,19 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiscover } from "../redux/movies/moviesSlice";
-import { setSelectedMenu } from "../redux/configSlice";
-import MovieCard from "../components/MovieCard";
+import { fetchSearchMovies } from "../redux/movies/moviesSlice";
 import Container from "./Container";
+import MovieCard from "../components/MovieCard";
 
-const Discover = () => {
-  const params = useParams();
-
+const SearchMovies = () => {
   const dispatch = useDispatch();
-
-  const { movies, status, error } = useSelector(
-    (state) => state.movies.movie
-  );
-
+  const { movies, status } = useSelector((state) => state.movies.movie);
+  const params = useParams();
+  console.log(movies);
   useEffect(() => {
-    const query = params.name.replace(/\s+/g, "_").toLowerCase();
-    
-    dispatch(setSelectedMenu({ selected: params.name }));
-    dispatch(fetchDiscover({ name: query }));
-    
-    return ()=> dispatch(setSelectedMenu({selected: null}));
-  }, [params.name]);
+    dispatch(fetchSearchMovies({ search: params.query }));
+  }, [params.query]);
+
 
   if (status == "idle" || status == "loading") {
     return "loading..";
@@ -48,4 +39,4 @@ const Discover = () => {
   );
 };
 
-export default Discover;
+export default SearchMovies;

@@ -8,6 +8,7 @@ export const fetchGenres = createAsyncThunk("movies/fetchGenres", async () => {
 
 export const fetchConfig = createAsyncThunk("movies/config", async () => {
   const response = await tmdb.get("/configuration");
+  
   return response.data;
 });
 
