@@ -48,7 +48,7 @@ export const fetchSearchMovies = createAsyncThunk(
   async ({ search }) => {
     const query = search.trim();
 
-    const response = await tmdb.get('/search/movie', {
+    const response = await tmdb.get("/search/movie", {
       params: {
         query,
       },

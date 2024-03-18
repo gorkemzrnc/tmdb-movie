@@ -9,11 +9,10 @@ const SearchMovies = () => {
   const dispatch = useDispatch();
   const { movies, status } = useSelector((state) => state.movies.movie);
   const params = useParams();
-  console.log(movies);
+
   useEffect(() => {
     dispatch(fetchSearchMovies({ search: params.query }));
   }, [params.query]);
-
 
   if (status == "idle" || status == "loading") {
     return "loading..";

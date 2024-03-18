@@ -17,7 +17,7 @@ const Genres = () => {
   return (
     <nav className="p-5 flex flex-col h-full gap-3">
       <div className="flex flex-col">
-        <span className="font-semibold mb-3 text-black">Discover</span>
+        <span className="font-semibold mb-3 text-headerColor">Discover</span>
         {staticCategories.map((item, i) => {
           return (
             <Link to={`/discover/${item}`} key={i} className="ml-1">
@@ -27,12 +27,12 @@ const Genres = () => {
         })}
       </div>
       <div className="flex flex-col">
-        <span className="font-semibold mb-3 text-black">Genres</span>
+        <span className="font-semibold mb-3 text-headerColor">Genres</span>
         <div className="flex flex-col gap-[1px]">
           {genres.map((item, i) => {
             return (
               <Link to={`/genres/${item.name}`} key={i} className="ml-1">
-                <MenuItem  name={item.name} selected={selectedMenu} />
+                <MenuItem name={item.name} selected={selectedMenu} />
               </Link>
             );
           })}

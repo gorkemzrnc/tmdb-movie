@@ -11,17 +11,15 @@ const Discover = () => {
 
   const dispatch = useDispatch();
 
-  const { movies, status, error } = useSelector(
-    (state) => state.movies.movie
-  );
+  const { movies, status, error } = useSelector((state) => state.movies.movie);
 
   useEffect(() => {
     const query = params.name.replace(/\s+/g, "_").toLowerCase();
-    
+
     dispatch(setSelectedMenu({ selected: params.name }));
     dispatch(fetchDiscover({ name: query }));
-    
-    return ()=> dispatch(setSelectedMenu({selected: null}));
+
+    return () => dispatch(setSelectedMenu({ selected: null }));
   }, [params.name]);
 
   if (status == "idle" || status == "loading") {

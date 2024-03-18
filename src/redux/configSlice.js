@@ -8,7 +8,7 @@ export const fetchGenres = createAsyncThunk("movies/fetchGenres", async () => {
 
 export const fetchConfig = createAsyncThunk("movies/config", async () => {
   const response = await tmdb.get("/configuration");
-  
+
   return response.data;
 });
 
@@ -18,25 +18,25 @@ const initialState = {
     status: "idle",
     error: null,
   },
-  config:{
+  config: {
     data: [],
-    status: 'idle',
+    status: "idle",
     error: null,
   },
-  staticCategories: ['Popular', 'Top Rated', 'Upcoming'],
+  staticCategories: ["Popular", "Top Rated", "Upcoming"],
   selectedMenu: null,
   header: null,
-  page:1,
+  page: 1,
 };
 
 const configSlice = createSlice({
   name: "config",
   initialState,
   reducers: {
-    setSelectedMenu: (state, action)=>{
-      const {selected} = action.payload;
+    setSelectedMenu: (state, action) => {
+      const { selected } = action.payload;
       state.selectedMenu = selected;
-    }
+    },
   },
   extraReducers(builder) {
     builder
@@ -51,19 +51,19 @@ const configSlice = createSlice({
         state.genre.status = "rejected";
         state.genre.error = action.error;
       })
-      .addCase(fetchConfig.pending, (state)=>{
+      .addCase(fetchConfig.pending, (state) => {
         state.config.status = "pending";
       })
-      .addCase(fetchConfig.fulfilled, (state, action)=>{
+      .addCase(fetchConfig.fulfilled, (state, action) => {
         state.config.status = "fulfilled";
-        state.config.data = action.payload; 
+        state.config.data = action.payload;
       })
       .addCase(fetchConfig.rejected, (state, action) => {
         state.config.status = "rejected";
         state.config.error = action.error;
-      })
+      });
   },
 });
 
 export default configSlice.reducer;
-export const {setSelectedMenu} = configSlice.actions;
+export const { setSelectedMenu } = configSlice.actions;

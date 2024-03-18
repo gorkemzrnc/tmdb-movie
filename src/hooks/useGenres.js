@@ -1,17 +1,17 @@
-import  { useEffect } from 'react';
-import { fetchGenres } from '../redux/configSlice';
-import {useDispatch, useSelector} from 'react-redux';
+import { useEffect } from "react";
+import { fetchGenres } from "../redux/configSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const useGenres = () => {
   const dispatch = useDispatch();
-  const {genres, status} = useSelector((state)=> state.config.genre);
-  const {selectedMenu} = useSelector((state)=> state.config);
+  const { genres, status } = useSelector((state) => state.config.genre);
+  const { selectedMenu } = useSelector((state) => state.config);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(fetchGenres());
-  },[]);
+  }, []);
 
-  return {genres, status, selectedMenu};
-}
+  return { genres, status, selectedMenu };
+};
 
-export default useGenres
+export default useGenres;
