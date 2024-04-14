@@ -25,7 +25,7 @@ function RenderIcon({ title, selected }) {
 const MenuItem = ({ name, selected }) => {
   return (
     <div
-      className={`font-normal text-xs text-gray-500 font-open-sans flex gap-2 px-2 py-[2px] items-center rounded-xl ${
+      className={`font-normal text-xs text-gray-500 font-open-sans flex gap-2 px-2 py-[5px] items-center rounded-xl ${
         selected == name ? "outline outline-1 text-gray-950" : ""
       }`}
     >

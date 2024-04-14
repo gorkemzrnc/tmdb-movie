@@ -26,7 +26,7 @@ const initialState = {
   staticCategories: ["Popular", "Top Rated", "Upcoming"],
   selectedMenu: null,
   header: null,
-  page: 1,
+  sidebar: false,
 };
 
 const configSlice = createSlice({
@@ -37,6 +37,10 @@ const configSlice = createSlice({
       const { selected } = action.payload;
       state.selectedMenu = selected;
     },
+    setSidebar: (state, action)=> {
+      const value = action.payload;
+      state.sidebar = value;
+    }
   },
   extraReducers(builder) {
     builder
@@ -66,4 +70,4 @@ const configSlice = createSlice({
 });
 
 export default configSlice.reducer;
-export const { setSelectedMenu } = configSlice.actions;
+export const { setSelectedMenu, setSidebar } = configSlice.actions;

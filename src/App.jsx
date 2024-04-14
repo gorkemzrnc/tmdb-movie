@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./App.css";
 import Sidebar from "./components/Sidebar.jsx";
 import styled from "styled-components";
 import Header from "./components/Header.jsx";
 import GenreMovies from "./pages/GenreMovies.jsx";
 import { useEffect } from "react";
-import { fetchConfig } from "./redux/configSlice.js";
+import { fetchConfig, fetchGenres } from "./redux/configSlice.js";
 import Discover from "./pages/Discover.jsx";
 import SearchMovie from "./pages/SearchMovie.jsx";
 
@@ -21,6 +21,10 @@ const ContentWrapper = styled.div`
   height: inherit;
   min-height: 100vh;
   margin-left: 12rem;
+  
+  @media only screen and (max-width: 768px) {
+    margin-left: 0;
+  }
 `;
 
 function App() {
@@ -28,6 +32,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchConfig());
+    dispatch(fetchGenres());
   }, []);
 
   return (

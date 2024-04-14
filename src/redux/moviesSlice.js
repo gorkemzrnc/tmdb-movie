@@ -1,16 +1,15 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import tmdb from "../../api/tmdb";
+import tmdb from "../api/tmdb";
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async (_, { getState }) => {
-    const { selectedMenu, page } = getState().config;
+  async ({ page }, { getState }) => {
+    const { selectedMenu } = getState().config;
+    const genres = getState().config.genre.genres;
 
-    if (selectedMenu == undefined) {
+    if (!selectedMenu) {
       return;
     }
-
-    const genres = getState().config.genre.genres;
 
     const genreId = genres
       .filter((el) => el.name === selectedMenu)
@@ -30,9 +29,7 @@ export const fetchMovies = createAsyncThunk(
 
 export const fetchDiscover = createAsyncThunk(
   "movies/fetchDiscover",
-  async ({ name, page }, { getState }) => {
-    const { selectedMenu } = getState().config;
-
+  async ({ name, page }) => {
     const response = await tmdb.get(`movie/${name}`, {
       params: {
         page,
@@ -45,12 +42,13 @@ export const fetchDiscover = createAsyncThunk(
 
 export const fetchSearchMovies = createAsyncThunk(
   "movies/fetchSearchMovies",
-  async ({ search }) => {
+  async ({ search, page }) => {
     const query = search.trim();
 
     const response = await tmdb.get("/search/movie", {
       params: {
         query,
+        page
       },
     });
 

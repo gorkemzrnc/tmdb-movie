@@ -1,18 +1,27 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSearchMovies } from "../redux/movies/moviesSlice";
+import { fetchSearchMovies } from "../redux/moviesSlice";
+import queryString from "query-string";
 import Container from "./Container";
 import MovieCard from "../components/MovieCard";
+import Pagination from "../components/Pagination";
 
 const SearchMovies = () => {
-  const dispatch = useDispatch();
   const { movies, status } = useSelector((state) => state.movies.movie);
+
+  const dispatch = useDispatch();
+
   const params = useParams();
 
+  const location = useLocation().search;
+
+  const queryUrl = queryString.parse(location);
+
+
   useEffect(() => {
-    dispatch(fetchSearchMovies({ search: params.query }));
-  }, [params.query]);
+    dispatch(fetchSearchMovies({ search: params.query, page: queryUrl.page }));
+  }, [params.query, queryUrl.page]);
 
   if (status == "idle" || status == "loading") {
     return "loading..";
@@ -34,6 +43,7 @@ const SearchMovies = () => {
           />
         );
       })}
+      <Pagination movies={movies} />
     </Container>
   );
 };

@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import moviesSlice from "./movies/moviesSlice"
+import moviesSlice from "./moviesSlice"
 import configSlice from './configSlice'
 
 export default configureStore({

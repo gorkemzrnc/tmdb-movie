@@ -1,26 +1,32 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDiscover } from "../redux/movies/moviesSlice";
+import queryString from "query-string";
+import { fetchDiscover } from "../redux/moviesSlice";
 import { setSelectedMenu } from "../redux/configSlice";
 import MovieCard from "../components/MovieCard";
 import Container from "./Container";
+import Pagination from "../components/Pagination";
 
 const Discover = () => {
+  const { movies, status, error } = useSelector((state) => state.movies.movie);
+
   const params = useParams();
 
   const dispatch = useDispatch();
 
-  const { movies, status, error } = useSelector((state) => state.movies.movie);
+  const location = useLocation().search;
+
+  const queryUrl = queryString.parse(location);
 
   useEffect(() => {
     const query = params.name.replace(/\s+/g, "_").toLowerCase();
 
     dispatch(setSelectedMenu({ selected: params.name }));
-    dispatch(fetchDiscover({ name: query }));
+    dispatch(fetchDiscover({ name: query, page: queryUrl.page }));
 
     return () => dispatch(setSelectedMenu({ selected: null }));
-  }, [params.name]);
+  }, [params.name, queryUrl.page]);
 
   if (status == "idle" || status == "loading") {
     return "loading..";
@@ -42,6 +48,7 @@ const Discover = () => {
           />
         );
       })}
+      <Pagination movies={movies} />
     </Container>
   );
 };

@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedMenu } from "../redux/configSlice";
-import { fetchMovies } from "../redux/movies/moviesSlice";
+import { fetchMovies } from "../redux/moviesSlice";
+import queryString from "query-string";
 import MovieCard from "../components/MovieCard";
 import Container from "./Container";
+import Pagination from "../components/Pagination";
 
 const GenreMovies = () => {
   const params = useParams();
 
+  const location = useLocation().search;
+
+  const queryUrl = queryString.parse(location);
+
   const dispatch = useDispatch();
 
   const { movies, status, error } = useSelector((state) => state.movies.movie);
-  const { selectedMenu, config } = useSelector((state) => state.config);
+
   const { genres } = useSelector((state) => state.config.genre);
 
   useEffect(() => {
     dispatch(setSelectedMenu({ selected: params.name }));
-    dispatch(fetchMovies());
-
-    return () => {
-      dispatch(setSelectedMenu({ selected: null }));
-    };
-  }, [params.name, selectedMenu, genres]);
+    dispatch(fetchMovies({ page: queryUrl.page }));
+  }, [params, queryUrl.page, genres]);
 
   if (status == "idle" || status == "loading") {
     return "loading..";
@@ -44,6 +46,7 @@ const GenreMovies = () => {
           />
         );
       })}
+      <Pagination movies={movies} />
     </Container>
   );
 };
