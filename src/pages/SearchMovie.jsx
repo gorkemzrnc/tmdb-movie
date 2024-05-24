@@ -8,7 +8,7 @@ import MovieCard from "../components/MovieCard";
 import Pagination from "../components/Pagination";
 
 const SearchMovies = () => {
-  const { movies, status } = useSelector((state) => state.movies.movie);
+  const { movies, status } = useSelector((state) => state.movies.discoverMovie);
 
   const dispatch = useDispatch();
 
@@ -17,7 +17,6 @@ const SearchMovies = () => {
   const location = useLocation().search;
 
   const queryUrl = queryString.parse(location);
-
 
   useEffect(() => {
     dispatch(fetchSearchMovies({ search: params.query, page: queryUrl.page }));
@@ -33,16 +32,21 @@ const SearchMovies = () => {
 
   return (
     <Container>
-      {movies.results.map((data, i) => {
-        return (
-          <MovieCard
-            id={data.id}
-            poster_path={data.poster_path}
-            title={data.title}
-            key={i}
-          />
-        );
-      })}
+      <h1 className="text-2xl mb-5 text-zinc-800">Search "{params.query}"</h1>
+      <div className="flex flex-wrap justify-between">
+        {movies.results.map((data, i) => {
+          return (
+            <MovieCard
+              id={data.id}
+              poster_path={data.poster_path}
+              title={data.title}
+              key={i}
+              vote_average={data.vote_average}
+            />
+          );
+        })}
+      </div>
+
       <Pagination movies={movies} />
     </Container>
   );

@@ -17,13 +17,17 @@ const GenreMovies = () => {
 
   const dispatch = useDispatch();
 
-  const { movies, status, error } = useSelector((state) => state.movies.movie);
+  const { movies, status, error } = useSelector((state) => state.movies.discoverMovie);
 
   const { genres } = useSelector((state) => state.config.genre);
 
   useEffect(() => {
     dispatch(setSelectedMenu({ selected: params.name }));
     dispatch(fetchMovies({ page: queryUrl.page }));
+
+    return ()=>{
+      dispatch(setSelectedMenu({selected: null}));
+    }
   }, [params, queryUrl.page, genres]);
 
   if (status == "idle" || status == "loading") {
@@ -36,16 +40,19 @@ const GenreMovies = () => {
 
   return (
     <Container>
-      {movies.results.map((data, i) => {
-        return (
-          <MovieCard
-            id={data.id}
-            poster_path={data.poster_path}
-            title={data.title}
-            key={i}
-          />
-        );
-      })}
+      <div className="flex flex-wrap justify-between">
+        {movies.results.map((data, i) => {
+          return (
+            <MovieCard
+              id={data.id}
+              poster_path={data.poster_path}
+              title={data.title}
+              key={i}
+              vote_average={data.vote_average}
+            />
+          );
+        })}
+      </div>
       <Pagination movies={movies} />
     </Container>
   );

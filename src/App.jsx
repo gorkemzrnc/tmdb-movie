@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, } from "react-redux";
 import "./App.css";
 import Sidebar from "./components/Sidebar.jsx";
 import styled from "styled-components";
@@ -9,10 +9,12 @@ import { useEffect } from "react";
 import { fetchConfig, fetchGenres } from "./redux/configSlice.js";
 import Discover from "./pages/Discover.jsx";
 import SearchMovie from "./pages/SearchMovie.jsx";
+import Movie from "./pages/Movie.jsx";
 
 const MainWrapper = styled.div`
   display: flex;
   min-height: 100vh;
+  min-width: 380px;
 `;
 
 const ContentWrapper = styled.div`
@@ -21,8 +23,8 @@ const ContentWrapper = styled.div`
   height: inherit;
   min-height: 100vh;
   margin-left: 12rem;
-  
-  @media only screen and (max-width: 768px) {
+
+  @media only screen and (max-width: 1024px) {
     margin-left: 0;
   }
 `;
@@ -33,6 +35,7 @@ function App() {
   useEffect(() => {
     dispatch(fetchConfig());
     dispatch(fetchGenres());
+    
   }, []);
 
   return (
@@ -46,6 +49,7 @@ function App() {
             <Route path="/genres/:name" element={<GenreMovies />} />
             <Route path="/discover/:name" element={<Discover />} />
             <Route path="/movies/:query" element={<SearchMovie />} />
+            <Route path="/movie/:id" element={<Movie />} />
           </Routes>
         </ContentWrapper>
       </MainWrapper>

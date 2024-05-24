@@ -19,13 +19,13 @@ const Pagination = ({ movies }) => {
     return (
       <div className="w-full relative mb-5">
         <Link
-          className="absolute right-0 w-24 h-8 bg-black text-white rounded-full flex justify-center items-center"
+          className="absolute right-0 w-24 h-8 bg-zinc-900 text-white rounded-full flex justify-center items-center hover:bg-zinc-800"
           to={`?page=${page + 1}`}
         >
           <button className="">next</button>
         </Link>
         <Link
-          className="absolute left-0 w-24 h-8 bg-black text-white rounded-full flex justify-center items-center"
+          className="absolute left-0 w-24 h-8 bg-zinc-900 text-white rounded-full flex justify-center items-center hover:bg-zinc-800"
           to={`?page=${page - 1}`}
         >
           <button className="">previous</button>

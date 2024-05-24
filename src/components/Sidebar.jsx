@@ -33,12 +33,12 @@ const Sidebar = () => {
   return (
     <div
       ref={containerRef}
-      className={`flex flex-col w-48 min-w-48 h-full border-r-[1px] border-slate-400 fixed md:left-0 ${
+      className={`z-50 flex flex-col w-48 min-w-48 h-full border-r-[1px] border-slate-400 fixed lg:left-0 ${
         isMenuOpen ? "left-0" : "-left-[100%]"
       } top-0 bg-white transition-all duration-300`}
     >
       <MdOutlineClose
-        className="absolute right-2 top-2 text-2xl cursor-pointer md:hidden"
+        className="absolute right-2 top-2 text-2xl cursor-pointer lg:hidden"
         onClick={() => dispatch(setSidebar(!isMenuOpen))}
       />
       <Logo />

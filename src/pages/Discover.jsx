@@ -9,7 +9,7 @@ import Container from "./Container";
 import Pagination from "../components/Pagination";
 
 const Discover = () => {
-  const { movies, status, error } = useSelector((state) => state.movies.movie);
+  const { movies, status, error } = useSelector((state) => state.movies.discoverMovie);
 
   const params = useParams();
 
@@ -38,6 +38,7 @@ const Discover = () => {
 
   return (
     <Container>
+      <div className="flex flex-wrap justify-between">
       {movies.results.map((data, i) => {
         return (
           <MovieCard
@@ -45,9 +46,12 @@ const Discover = () => {
             poster_path={data.poster_path}
             title={data.title}
             key={i}
+            vote_average={data.vote_average}
           />
         );
       })}
+      </div>
+      
       <Pagination movies={movies} />
     </Container>
   );
